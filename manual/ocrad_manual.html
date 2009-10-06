@@ -1,0 +1,332 @@
+<html lang="en">
+<head>
+<title>GNU Ocrad</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="GNU Ocrad">
+<meta name="generator" content="makeinfo 4.8">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+--></style>
+</head>
+<body>
+<h1 class="settitle">GNU Ocrad</h1>
+<div class="contents">
+<h2>Table of Contents</h2>
+<ul>
+<li><a name="toc_Top" href="#Top">GNU Ocrad</a>
+<li><a name="toc_Character-Sets" href="#Character-Sets">1 Character Sets</a>
+<li><a name="toc_Invoking-Ocrad" href="#Invoking-Ocrad">2 Invoking Ocrad</a>
+<li><a name="toc_Image-Format-Conversion" href="#Image-Format-Conversion">3 Image Format Conversion</a>
+<li><a name="toc_Algorithm" href="#Algorithm">4 Algorithm</a>
+<li><a name="toc_Problems" href="#Problems">5 Reporting Bugs</a>
+<li><a name="toc_Concept-Index" href="#Concept-Index">Concept Index</a>
+</li></ul>
+</div>
+
+
+
+<div class="node">
+<p><hr>
+<a name="Top"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Character-Sets">Character Sets</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
+
+</div>
+
+<h2 class="unnumbered">GNU Ocrad</h2>
+
+<p>This manual is for GNU Ocrad (version 0.18, 8 May 2009).
+
+   <pre class="sp">
+
+</pre>
+GNU Ocrad is an OCR (Optical Character Recognition) program based on a
+feature extraction method. It reads images in pbm (bitmap), pgm
+(greyscale) or ppm (color) formats and produces text in byte&nbsp;(8-bit)<!-- /@w -->
+or UTF-8 formats. The pbm, pgm and ppm formats are collectively known as
+pnm.
+
+   <p>Ocrad includes a layout analyser able to separate the columns or blocks
+of text normally found on printed pages.
+
+<ul class="menu">
+<li><a accesskey="1" href="#Character-Sets">Character Sets</a>: 		Input charsets and output formats
+<li><a accesskey="2" href="#Invoking-Ocrad">Invoking Ocrad</a>: 		Command line interface
+<li><a accesskey="3" href="#Image-Format-Conversion">Image Format Conversion</a>: 	How to convert other formats to pnm
+<li><a accesskey="4" href="#Algorithm">Algorithm</a>: 			How ocrad does its job
+<li><a accesskey="5" href="#Problems">Problems</a>: 			Reporting bugs
+<li><a accesskey="6" href="#Concept-Index">Concept Index</a>: 		Index of concepts
+</ul>
+
+   <pre class="sp">
+
+</pre>
+Copyright &copy; 2003, 2004, 2005, 2006, 2007, 2008, 2009
+Antonio Diaz Diaz.
+
+   <p>This manual is free documentation: you have unlimited permission
+to copy, distribute and modify it.
+
+<div class="node">
+<p><hr>
+<a name="Character-Sets"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Invoking-Ocrad">Invoking Ocrad</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">1 Character Sets</h2>
+
+<p><a name="index-input-charsets-1"></a><a name="index-output-format-2"></a>
+The character set internally used by ocrad is ISO 10646, also known as
+UCS (Universal Character Set), which can represent over two thousand
+million characters (2^31).
+
+   <p>As it is unpractical to try to recognize one among so many different
+characters, you can tell ocrad what character sets to recognize. You do
+this with the `<samp><span class="samp">--charset</span></samp>' option.
+
+   <p>If the input page contains characters from only one character set, say
+`<samp><span class="samp">ISO-8859-15</span></samp>'<!-- /@w -->, you can use the default `<samp><span class="samp">byte</span></samp>' output
+format. But in a page with `<samp><span class="samp">ISO-8859-9</span></samp>'<!-- /@w --> and
+`<samp><span class="samp">ISO-8859-15</span></samp>'<!-- /@w --> characters, you can't tell if a code of 0xFD
+represents a 'latin small letter i dotless' or a 'latin small letter y
+with acute'. You should use `<samp><span class="samp">--format=utf8</span></samp>'<!-- /@w --> instead.<br>
+Of course, you may request UTF-8 output in any case.
+
+   <pre class="sp">
+
+</pre>
+NOTE: 10^9 is a thousand millions, a billion is a million millions
+(million^2), a trillion is a million million millions (million^3), and
+so on. Please, don't "embrace and extend" the meaning of prefixes,
+making communication among all people difficult. Thanks.
+
+<div class="node">
+<p><hr>
+<a name="Invoking-Ocrad"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Image-Format-Conversion">Image Format Conversion</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Character-Sets">Character Sets</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">2 Invoking Ocrad</h2>
+
+<p><a name="index-invoking-3"></a><a name="index-options-4"></a><a name="index-usage-5"></a><a name="index-version-6"></a>
+The format for running ocrad is:
+
+<pre class="example">     ocrad [<var>options</var>] [<var>files</var>]
+</pre>
+   <p>Ocrad supports the following options:
+
+     <dl>
+<dt>`<samp><span class="samp">--help</span></samp>'<dt>`<samp><span class="samp">-h</span></samp>'<dd>Print an informative help message describing the options and exit. 
+`<samp><span class="samp">ocrad&nbsp;--verbose&nbsp;--help</span></samp>'<!-- /@w --> describes also hidden options.
+
+     <br><dt>`<samp><span class="samp">--version</span></samp>'<dt>`<samp><span class="samp">-V</span></samp>'<dd>Print the version number of ocrad on the standard output and exit.
+
+     <br><dt>`<samp><span class="samp">--append</span></samp>'<dt>`<samp><span class="samp">-a</span></samp>'<dd>Append generated text to the output file instead of overwriting it.
+
+     <br><dt>`<samp><span class="samp">--charset=</span><var>name</var></samp>'<dt>`<samp><span class="samp">-c </span><var>name</var></samp>'<dd>Enable recognition of the characters belonging to the given character set. 
+You can repeat this option multiple times with different names for
+processing a page with characters from different character sets.<br>
+If no charset is specified, `<samp><span class="samp">iso-8859-15</span></samp>'<!-- /@w --> (latin9) is assumed.<br>
+Try `<samp><span class="samp">--charset=help</span></samp>'<!-- /@w --> for a list of valid charset names.
+
+     <br><dt>`<samp><span class="samp">--crop=</span><var>left</var><span class="samp">,</span><var>top</var><span class="samp">,</span><var>right</var><span class="samp">,</span><var>bottom</var></samp>'<dt>`<samp><span class="samp">-p </span><var>left</var><span class="samp">,</span><var>top</var><span class="samp">,</span><var>right</var><span class="samp">,</span><var>bottom</var></samp>'<dd>Crop the input image by the rectangle defined by <var>left</var>, <var>top</var>,
+<var>right</var> and <var>bottom</var>. The values of <var>left</var>, <var>top</var>,
+<var>right</var> and <var>bottom</var> may be relative to the image size (-1.0&nbsp;&lt;=&nbsp;value&nbsp;&lt;=&nbsp;+1.0)<!-- /@w -->, or absolute (abs(&nbsp;value&nbsp;)&nbsp;&gt;&nbsp;1)<!-- /@w -->. Negative values
+are relative to the right-bottom corner of the image. Absolute and
+relative values can be mixed. For example `<samp><span class="samp">ocrad&nbsp;--crop&nbsp;700,960,1,1</span></samp>'<!-- /@w --> will work as expected.<br>
+The cropping is performed before any other transformation (rotation or
+mirroring) on the input image, and before scaling, layout analysis and
+recognition.
+
+     <br><dt>`<samp><span class="samp">--filter=</span><var>name</var></samp>'<dt>`<samp><span class="samp">-e </span><var>name</var></samp>'<dd>Pass the output text through the given postprocessing filter.<br>
+`<samp><span class="samp">--filter=letters</span></samp>'<!-- /@w --> forces every character that resembles a
+letter to be recognized as a letter. Other characters will be output
+without change.<br>
+`<samp><span class="samp">--filter=letters_only</span></samp>'<!-- /@w -->, same as `<samp><span class="samp">--filter=letters</span></samp>'<!-- /@w -->,
+but other characters will be discarded.<br>
+`<samp><span class="samp">--filter=numbers</span></samp>'<!-- /@w --> forces every character that resembles a
+number to be recognized as a number. Other characters will be output
+without change.<br>
+`<samp><span class="samp">--filter=numbers_only</span></samp>'<!-- /@w -->, same as `<samp><span class="samp">--filter=numbers</span></samp>'<!-- /@w -->
+but other characters will be discarded.<br>
+Try `<samp><span class="samp">--filter=help</span></samp>'<!-- /@w --> for a list of valid filter names.
+
+     <br><dt>`<samp><span class="samp">--force</span></samp>'<dt>`<samp><span class="samp">-f</span></samp>'<dd>Force overwrite of output file.
+
+     <br><dt>`<samp><span class="samp">--format=</span><var>name</var></samp>'<dt>`<samp><span class="samp">-F </span><var>name</var></samp>'<dd>Select the output format. The valid names are `<samp><span class="samp">byte</span></samp>' and `<samp><span class="samp">utf8</span></samp>'.<br>
+If no output format is specified, `<samp><span class="samp">byte</span></samp>' (8 bit) is assumed.
+
+     <br><dt>`<samp><span class="samp">--invert</span></samp>'<dt>`<samp><span class="samp">-i</span></samp>'<dd>Invert image levels (white on black).
+
+     <br><dt>`<samp><span class="samp">--layout</span></samp>'<dt>`<samp><span class="samp">-l</span></samp>'<dd>Enable page layout analysis. Ocrad is able to separate blocks of text of
+arbitrary shape as long as they are clearly delimited by white space.
+
+     <br><dt>`<samp><span class="samp">-o </span><var>file</var></samp>'<dd>Place the output into <var>file</var> instead of into the standard output.
+
+     <br><dt>`<samp><span class="samp">--quiet</span></samp>'<dt>`<samp><span class="samp">-q</span></samp>'<dd>Quiet operation.
+
+     <br><dt>`<samp><span class="samp">--scale=</span><var>value</var></samp>'<dt>`<samp><span class="samp">-s </span><var>value</var></samp>'<dd>Scale the input image by <var>value</var> before layout analysis and recognition. 
+If <var>value</var> is negative, the input image is scaled down by <var>-value</var>.
+
+     <br><dt>`<samp><span class="samp">--transform=</span><var>name</var></samp>'<dt>`<samp><span class="samp">-t </span><var>name</var></samp>'<dd>Perform given transformation (rotation or mirroring) on the input image
+before scaling, layout analysis and recognition.<br>
+Try `<samp><span class="samp">--transform=help</span></samp>'<!-- /@w --> for a list of valid transformation names.
+
+     <br><dt>`<samp><span class="samp">--threshold=</span><var>value</var></samp>'<dt>`<samp><span class="samp">-T </span><var>value</var></samp>'<dd>Set binarization threshold for pgm or ppm files or for `<samp><span class="samp">--scale</span></samp>'
+option (only for scaled down images). <var>value</var> should be a rational
+number between 0 an 1, and may be given as a percentage (50%), a
+fraction (1/2), or a decimal value (0.5). Image values greater than
+threshold are converted to white. The default value is 0.5.
+
+     <br><dt>`<samp><span class="samp">--verbose</span></samp>'<dt>`<samp><span class="samp">-v</span></samp>'<dd>Verbose mode.
+
+     <br><dt>`<samp><span class="samp">-x </span><var>file</var></samp>'<dd>Write (export) OCR Results File to <var>file</var>. `<samp><span class="samp">-x&nbsp;-</span></samp>'<!-- /@w --> writes to
+stdout, overriding text output except if output has been also redirected
+with the -o option. 
+</dl>
+
+<div class="node">
+<p><hr>
+<a name="Image-Format-Conversion"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Algorithm">Algorithm</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Invoking-Ocrad">Invoking Ocrad</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">3 Image Format Conversion</h2>
+
+<p><a name="index-image-format-conversion-7"></a>
+There are a lot of image formats, but ocrad is able to decode only three
+of them; pbm, pgm and ppm. In this chapter you will find command
+examples and advice about how to convert image files to a format that
+ocrad can manage.
+
+     <dl>
+<dt>`<samp><span class="samp">.png</span></samp>'<dd>Portable Network Graphics file. Use the command
+<code>pngtopnm&nbsp;filename.png&nbsp;|&nbsp;ocrad</code><!-- /@w -->.<br>
+In some cases, like the ocrad.png icon, you have to invert the image
+with the `<samp><span class="samp">-i</span></samp>' option: <code>pngtopnm&nbsp;filename.png&nbsp;|&nbsp;ocrad&nbsp;-i</code><!-- /@w -->.
+
+     <br><dt>`<samp><span class="samp">.ps</span></samp>'<dt>`<samp><span class="samp">.pdf</span></samp>'<dd>Postscript or Portable Document Format file. Use the command
+<code>gs&nbsp;-sPAPERSIZE=a4&nbsp;-sDEVICE=pnmraw&nbsp;-r300&nbsp;-dNOPAUSE&nbsp;-dBATCH&nbsp;-sOutputFile=-&nbsp;-q&nbsp;filename.ps&nbsp;|&nbsp;ocrad</code><!-- /@w -->.<br>
+You may also use the command
+<code>pstopnm&nbsp;-stdout&nbsp;-dpi=300&nbsp;-pgm&nbsp;filename.ps&nbsp;|&nbsp;ocrad</code><!-- /@w -->,<br>
+but it seems not to work with pdf files. Also old versions of
+<code>pstopnm</code> don't recognize the `<samp><span class="samp">-dpi</span></samp>' option and produce an
+image too small for OCR.
+
+     <br><dt>`<samp><span class="samp">.tiff</span></samp>'<dd>TIFF file. Use the command<br>
+<code>tifftopnm&nbsp;filename.tiff&nbsp;|&nbsp;ocrad</code><!-- /@w -->.
+
+     <br><dt>`<samp><span class="samp">.jpg</span></samp>'<dd>JPEG file. Use the command
+<code>djpeg&nbsp;-greyscale&nbsp;-pnm&nbsp;filename.jpg&nbsp;|&nbsp;ocrad</code><!-- /@w -->.<br>
+JPEG is a lossy format and is in general not recommended for text images.
+
+     <br><dt>`<samp><span class="samp">.pnm.gz</span></samp>'<dd>Pnm file compressed with gzip. Use the command
+<code>gzip&nbsp;-cd&nbsp;filename.pnm.gz&nbsp;|&nbsp;ocrad</code><!-- /@w -->
+
+     <br><dt>`<samp><span class="samp">.pnm.lz</span></samp>'<dd>Pnm file compressed with lzip. Use the command
+<code>lzip&nbsp;-cd&nbsp;filename.pnm.lz&nbsp;|&nbsp;ocrad</code><!-- /@w -->
+</dl>
+
+<div class="node">
+<p><hr>
+<a name="Algorithm"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Problems">Problems</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Image-Format-Conversion">Image Format Conversion</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">4 Algorithm</h2>
+
+<p><a name="index-algorithm-8"></a>
+Ocrad is mainly a research project. Many of the algorithms ocrad uses
+are ad hoc, and will change in successive releases as I myself gain
+understanding about OCR issues.
+
+   <p>The overall working of ocrad may be described as follows:<br>
+1) read the image.<br>
+2) optionally, perform some transformations (crop, rotate, scale, etc).<br>
+3) optionally, perform layout detection.<br>
+4) remove frames and images.<br>
+5) detect characters and group them in lines.<br>
+6) recognize characters (very ad hoc; one algorithm per character).<br>
+7) correct some errors (transform l.OOO into 1.000, etc).<br>
+8) output result.
+
+   <pre class="sp">
+
+</pre>
+Ocrad recognizes characters by its shape, and the reason it is so fast
+is that it does not compare the shape of every character against some
+sort of database of shapes and then chooses the best match. Instead of
+this, ocrad only compares the shape differences that are relevant to
+choose between two character categories, mostly like a binary search.
+
+   <p>As there is no such thing as a free lunch, this approach has some
+drawbacks. It makes ocrad very sensitive to character defects, and makes
+difficult to modify ocrad to recognize new characters.
+
+<div class="node">
+<p><hr>
+<a name="Problems"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Concept-Index">Concept Index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Algorithm">Algorithm</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="chapter">5 Reporting Bugs</h2>
+
+<p><a name="index-bugs-9"></a><a name="index-getting-help-10"></a>
+There are probably bugs in ocrad. There are certainly errors and
+omissions in this manual. If you report them, they will get fixed. If
+you don't, no one will ever know about them and they will remain unfixed
+for all eternity, if not longer.
+
+   <p>If you find a bug in GNU Ocrad, please send electronic mail to
+<a href="mailto:bug-ocrad@gnu.org">bug-ocrad@gnu.org</a>. Include the version number, which you can
+find by running `<samp><span class="samp">ocrad&nbsp;--version</span></samp>'<!-- /@w -->.
+
+<div class="node">
+<p><hr>
+<a name="Concept-Index"></a>
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Problems">Problems</a>,
+Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
+
+</div>
+
+<h2 class="unnumbered">Concept Index</h2>
+
+<ul class="index-cp" compact>
+<li><a href="#index-algorithm-8">algorithm</a>: <a href="#Algorithm">Algorithm</a></li>
+<li><a href="#index-bugs-9">bugs</a>: <a href="#Problems">Problems</a></li>
+<li><a href="#index-getting-help-10">getting help</a>: <a href="#Problems">Problems</a></li>
+<li><a href="#index-image-format-conversion-7">image format conversion</a>: <a href="#Image-Format-Conversion">Image Format Conversion</a></li>
+<li><a href="#index-input-charsets-1">input charsets</a>: <a href="#Character-Sets">Character Sets</a></li>
+<li><a href="#index-invoking-3">invoking</a>: <a href="#Invoking-Ocrad">Invoking Ocrad</a></li>
+<li><a href="#index-options-4">options</a>: <a href="#Invoking-Ocrad">Invoking Ocrad</a></li>
+<li><a href="#index-output-format-2">output format</a>: <a href="#Character-Sets">Character Sets</a></li>
+<li><a href="#index-usage-5">usage</a>: <a href="#Invoking-Ocrad">Invoking Ocrad</a></li>
+<li><a href="#index-version-6">version</a>: <a href="#Invoking-Ocrad">Invoking Ocrad</a></li>
+   </ul></body></html>
+
