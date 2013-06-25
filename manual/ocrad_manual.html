@@ -1,7 +1,7 @@
 <html lang="en">
 <head>
 <title>GNU Ocrad Manual</title>
-<meta http-equiv="Content-Type" content="text/html">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-15">
 <meta name="description" content="GNU Ocrad Manual">
 <meta name="generator" content="makeinfo 4.8">
 <link title="Top" rel="top" href="#Top">
@@ -30,7 +30,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">GNU Ocrad Manual</h2>
 
-<p>This manual is for GNU Ocrad (version 0.21, 10 January 2011).
+<p>This manual is for GNU Ocrad (version 0.22-rc3, 21 June 2013).
 
    <pre class="sp">
 
@@ -60,7 +60,7 @@ of text normally found on printed pages.
 
 </pre>
 Copyright &copy; 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
-2011 Antonio Diaz Diaz.
+2011, 2012, 2013 Antonio Diaz Diaz.
 
    <p>This manual is free documentation: you have unlimited permission
 to copy, distribute and modify it.
@@ -146,7 +146,7 @@ without change.<br>
 but other characters will be discarded.<br>
 Try `<samp><span class="samp">--filter=help</span></samp>'<!-- /@w --> for a list of valid filter names.
 
-     <br><dt>`<samp><span class="samp">-f</span></samp>'<dt>`<samp><span class="samp">--force</span></samp>'<dd>Force overwrite of output file.
+     <br><dt>`<samp><span class="samp">-f</span></samp>'<dt>`<samp><span class="samp">--force</span></samp>'<dd>Force overwrite of output files.
 
      <br><dt>`<samp><span class="samp">-F </span><var>name</var></samp>'<dt>`<samp><span class="samp">--format=</span><var>name</var></samp>'<dd>Select the output format. The valid names are `<samp><span class="samp">byte</span></samp>' and `<samp><span class="samp">utf8</span></samp>'.<br>
 If no output format is specified, `<samp><span class="samp">byte</span></samp>' (8 bit) is assumed.
@@ -181,16 +181,23 @@ Negative values of <var>left</var>, <var>top</var> are relative to the
 right-bottom corner of the image. Values of <var>width</var> and <var>height</var>
 must be positive. Absolute and relative values can be mixed. For example
 `<samp><span class="samp">ocrad&nbsp;--cut&nbsp;700,960,1,1</span></samp>'<!-- /@w --> will extract from `<samp><span class="samp">700,960</span></samp>' to
-the right-bottom corner of the image.<br> The cutting is performed before
-any other transformation (rotation or mirroring) on the input image, and
-before scaling, layout analysis and recognition.
+the right-bottom corner of the image.<br>
+The cutting is performed before any other transformation (rotation or
+mirroring) on the input image, and before scaling, layout analysis and
+recognition.
 
      <br><dt>`<samp><span class="samp">-v</span></samp>'<dt>`<samp><span class="samp">--verbose</span></samp>'<dd>Verbose mode.
 
      <br><dt>`<samp><span class="samp">-x </span><var>file</var></samp>'<dt>`<samp><span class="samp">--export=</span><var>file</var></samp>'<dd>Write (export) OCR Results File to <var>file</var> (see <a href="#OCR-Results-File">OCR Results File</a>). 
 `<samp><span class="samp">-x&nbsp;-</span></samp>'<!-- /@w --> writes to stdout, overriding text output except if
-output has been also redirected with the `<samp><span class="samp">-o</span></samp>' option. 
-</dl>
+output has been also redirected with the `<samp><span class="samp">-o</span></samp>' option.
+
+   </dl>
+
+   <p>Exit status: 0 for a normal exit, 1 for environmental problems (file not
+found, invalid flags, I/O errors, etc), 2 to indicate a corrupt or
+invalid input file, 3 for an internal consistency error (eg, bug) which
+caused ocrad to panic.
 
 <div class="node">
 <p><hr>
@@ -264,21 +271,27 @@ an argument to any OCRAD function.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>OCRAD_set_image</b> (<var> struct OCRAD_Descriptor * const ocrdes, const struct OCRAD_Pixmap * const image, const unsigned char invert </var>)<var><a name="index-OCRAD_005fset_005fimage-14"></a></var><br>
-<blockquote><p>Loads <var>image</var> into the internal buffer. If <var>invert</var> is nonzero,
+&mdash; Function: int <b>OCRAD_set_image</b> (<var> struct OCRAD_Descriptor * const ocrdes, const struct OCRAD_Pixmap * const image, const bool invert </var>)<var><a name="index-OCRAD_005fset_005fimage-14"></a></var><br>
+<blockquote><p>Loads <var>image</var> into the internal buffer. If <var>invert</var> is true,
 image levels are inverted (white on black). Loading a new image deletes
 any previous text results. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>OCRAD_set_image_from_file</b> (<var> struct OCRAD_Descriptor * const ocrdes, const char * const filename, const unsigned char invert </var>)<var><a name="index-OCRAD_005fset_005fimage_005ffrom_005ffile-15"></a></var><br>
+&mdash; Function: int <b>OCRAD_set_image_from_file</b> (<var> struct OCRAD_Descriptor * const ocrdes, const char * const filename, const bool invert </var>)<var><a name="index-OCRAD_005fset_005fimage_005ffrom_005ffile-15"></a></var><br>
 <blockquote><p>Loads a image from the file <var>filename</var> into the internal buffer. If
-<var>invert</var> is nonzero, image levels are inverted (white on black). 
+<var>invert</var> is true, image levels are inverted (white on black). 
 Loading a new image deletes any previous text results. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>OCRAD_set_threshold</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int threshold </var>)<var><a name="index-OCRAD_005fset_005fthreshold-16"></a></var><br>
+&mdash; Function: int <b>OCRAD_set_utf8_format</b> (<var> struct OCRAD_Descriptor * const ocrdes, const bool utf8 </var>)<var><a name="index-OCRAD_005fset_005futf8_005fformat-16"></a></var><br>
+<blockquote><p>Set the output format to `<samp><span class="samp">byte</span></samp>' (if <var>utf8</var>=false) or to
+`<samp><span class="samp">utf8</span></samp>'. By default ocrad produces `<samp><span class="samp">byte</span></samp>' (8 bit) output. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Function: int <b>OCRAD_set_threshold</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int threshold </var>)<var><a name="index-OCRAD_005fset_005fthreshold-17"></a></var><br>
 <blockquote><p>Set binarization threshold for greymap or RGB images. <var>threshold</var>
 values between 0 and 255 set a fixed threshold. A value of -1 sets an
 automatic threshold. Pixel values greater than the resulting threshold
@@ -287,56 +300,56 @@ not called is 127.
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>OCRAD_scale</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int value </var>)<var><a name="index-OCRAD_005fscale-17"></a></var><br>
+&mdash; Function: int <b>OCRAD_scale</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int value </var>)<var><a name="index-OCRAD_005fscale-18"></a></var><br>
 <blockquote><p>Scale up the image in the internal buffer by <var>value</var>. If <var>value</var>
 is negative, the image is scaled down by <var>-value</var>. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>OCRAD_recognize</b> (<var> struct OCRAD_Descriptor * const ocrdes, const unsigned char layout </var>)<var><a name="index-OCRAD_005frecognize-18"></a></var><br>
+&mdash; Function: int <b>OCRAD_recognize</b> (<var> struct OCRAD_Descriptor * const ocrdes, const bool layout </var>)<var><a name="index-OCRAD_005frecognize-19"></a></var><br>
 <blockquote><p>Recognize the image loaded in the internal buffer and produce text
 results which can be later retrieved with the `<samp><span class="samp">OCRAD_result</span></samp>'
 functions. The same image can be recognized as many times as desired,
 for example setting a new threshold each time for 3D greymap
 recognition. Every time this function is called, the produced text
-results replace any previous ones. If <var>layout</var> is nonzero, page
-layout analysis is enabled, probably producing more than one text block. 
+results replace any previous ones. If <var>layout</var> is true, page layout
+analysis is enabled, probably producing more than one text block. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>OCRAD_result_blocks</b> (<var> struct OCRAD_Descriptor * const ocrdes </var>)<var><a name="index-OCRAD_005fresult_005fblocks-19"></a></var><br>
+&mdash; Function: int <b>OCRAD_result_blocks</b> (<var> struct OCRAD_Descriptor * const ocrdes </var>)<var><a name="index-OCRAD_005fresult_005fblocks-20"></a></var><br>
 <blockquote><p>Returns the number of text blocks found in the image by the layout
 analyser or 1 if no layout analysis was requested. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>OCRAD_result_lines</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int blocknum </var>)<var><a name="index-OCRAD_005fresult_005flines-20"></a></var><br>
+&mdash; Function: int <b>OCRAD_result_lines</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int blocknum </var>)<var><a name="index-OCRAD_005fresult_005flines-21"></a></var><br>
 <blockquote><p>Returns the number of text lines contained in the given text block. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>OCRAD_result_chars_total</b> (<var> struct OCRAD_Descriptor * const ocrdes </var>)<var><a name="index-OCRAD_005fresult_005fchars_005ftotal-21"></a></var><br>
+&mdash; Function: int <b>OCRAD_result_chars_total</b> (<var> struct OCRAD_Descriptor * const ocrdes </var>)<var><a name="index-OCRAD_005fresult_005fchars_005ftotal-22"></a></var><br>
 <blockquote><p>Returns the total number of text characters contained in the recognized
 image. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>OCRAD_result_chars_block</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int blocknum </var>)<var><a name="index-OCRAD_005fresult_005fchars_005fblock-22"></a></var><br>
+&mdash; Function: int <b>OCRAD_result_chars_block</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int blocknum </var>)<var><a name="index-OCRAD_005fresult_005fchars_005fblock-23"></a></var><br>
 <blockquote><p>Returns the number of text characters contained in the given text block. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>OCRAD_result_chars_line</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int blocknum, const int linenum </var>)<var><a name="index-OCRAD_005fresult_005fchars_005fline-23"></a></var><br>
+&mdash; Function: int <b>OCRAD_result_chars_line</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int blocknum, const int linenum </var>)<var><a name="index-OCRAD_005fresult_005fchars_005fline-24"></a></var><br>
 <blockquote><p>Returns the number of text characters contained in the given text line. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: const char * <b>OCRAD_result_line</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int blocknum, const int linenum </var>)<var><a name="index-OCRAD_005fresult_005fline-24"></a></var><br>
+&mdash; Function: const char * <b>OCRAD_result_line</b> (<var> struct OCRAD_Descriptor * const ocrdes, const int blocknum, const int linenum </var>)<var><a name="index-OCRAD_005fresult_005fline-25"></a></var><br>
 <blockquote><p>Returns the line of text specified by <var>blocknum</var> and <var>linenum</var>. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Function: int <b>OCRAD_result_first_character</b> (<var> struct OCRAD_Descriptor * const ocrdes </var>)<var><a name="index-OCRAD_005fresult_005ffirst_005fcharacter-25"></a></var><br>
+&mdash; Function: int <b>OCRAD_result_first_character</b> (<var> struct OCRAD_Descriptor * const ocrdes </var>)<var><a name="index-OCRAD_005fresult_005ffirst_005fcharacter-26"></a></var><br>
 <blockquote><p>Returns the byte result for the first character in the image. Returns 0
 if the image has no characters or if the first character could not be
 recognized. This function is a convenient short cut to the result for
@@ -354,7 +367,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">5 Library Error Codes</h2>
 
-<p><a name="index-library-error-codes-26"></a>
+<p><a name="index-library-error-codes-27"></a>
 Most library functions return -1 or a null pointer to indicate that they
 have failed. But this return value only tells you that an error has
 occurred. To find out what kind of error it was, you need to verify the
@@ -370,31 +383,31 @@ whether a call failed. If the call failed, then you can examine
    <p>The error codes are defined in the header file `<samp><span class="samp">ocradlib.h</span></samp>'.
 
 <div class="defun">
-&mdash; Constant: enum OCRAD_Errno <b>OCRAD_ok</b><var><a name="index-OCRAD_005fok-27"></a></var><br>
+&mdash; Constant: enum OCRAD_Errno <b>OCRAD_ok</b><var><a name="index-OCRAD_005fok-28"></a></var><br>
 <blockquote><p>The value of this constant is 0 and is used to indicate that there is no
 error. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Constant: enum OCRAD_Errno <b>OCRAD_bad_argument</b><var><a name="index-OCRAD_005fbad_005fargument-28"></a></var><br>
+&mdash; Constant: enum OCRAD_Errno <b>OCRAD_bad_argument</b><var><a name="index-OCRAD_005fbad_005fargument-29"></a></var><br>
 <blockquote><p>At least one of the arguments passed to the library function was
 invalid. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Constant: enum OCRAD_Errno <b>OCRAD_mem_error</b><var><a name="index-OCRAD_005fmem_005ferror-29"></a></var><br>
+&mdash; Constant: enum OCRAD_Errno <b>OCRAD_mem_error</b><var><a name="index-OCRAD_005fmem_005ferror-30"></a></var><br>
 <blockquote><p>No memory available. The system cannot allocate more virtual memory
 because its capacity is full. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Constant: enum OCRAD_Errno <b>OCRAD_sequence_error</b><var><a name="index-OCRAD_005fsequence_005ferror-30"></a></var><br>
+&mdash; Constant: enum OCRAD_Errno <b>OCRAD_sequence_error</b><var><a name="index-OCRAD_005fsequence_005ferror-31"></a></var><br>
 <blockquote><p>A library function was called in the wrong order. For example
 `<samp><span class="samp">OCRAD_result_line</span></samp>' was called before `<samp><span class="samp">OCRAD_recognize</span></samp>'. 
 </p></blockquote></div>
 
 <div class="defun">
-&mdash; Constant: enum OCRAD_Errno <b>OCRAD_library_error</b><var><a name="index-OCRAD_005flibrary_005ferror-31"></a></var><br>
+&mdash; Constant: enum OCRAD_Errno <b>OCRAD_library_error</b><var><a name="index-OCRAD_005flibrary_005ferror-32"></a></var><br>
 <blockquote><p>A bug was detected in the library. Please, report it (see <a href="#Problems">Problems</a>). 
 </p></blockquote></div>
 
@@ -409,7 +422,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">6 Image Format Conversion</h2>
 
-<p><a name="index-image-format-conversion-32"></a>
+<p><a name="index-image-format-conversion-33"></a>
 There are a lot of image formats, but ocrad is able to decode only three
 of them; pbm, pgm and ppm. In this chapter you will find command
 examples and advice about how to convert image files to a format that
@@ -441,7 +454,8 @@ JPEG is a lossy format and is in general not recommended for text images.
 
      <br><dt>`<samp><span class="samp">.pnm.lz</span></samp>'<dd>Pnm file compressed with lzip. Use the command
 <code>lzip&nbsp;-cd&nbsp;filename.pnm.lz&nbsp;|&nbsp;ocrad</code><!-- /@w -->
-</dl>
+
+   </dl>
 
 <div class="node">
 <p><hr>
@@ -454,7 +468,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">7 Algorithm</h2>
 
-<p><a name="index-algorithm-33"></a>
+<p><a name="index-algorithm-34"></a>
 Ocrad is mainly a research project. Many of the algorithms ocrad uses
 are ad hoc, and will change in successive releases as I myself gain
 understanding about OCR issues.
@@ -493,20 +507,22 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">8 OCR Results File</h2>
 
-<p><a name="index-OCR-Results-File-34"></a>
+<p><a name="index-OCR-Results-File-35"></a>
 Calling ocrad with option `<samp><span class="samp">-x</span></samp>' produces an OCR Results File (ORF),
 that is, a parsable file containing the OCR results. The ORF format is
 as follows:
 
      <ul>
-<li>All lines starting with `<samp><span class="samp">#</span></samp>' are ignored. 
-<li>The first valid line has the form `<samp><span class="samp">source file </span><var>filename</var></samp>'. 
-Where <var>filename</var> is the name of the file being processed (`<samp><span class="samp">-</span></samp>'
-for stdin). This is the only line guaranteed to exist for every input
-file read without errors. If the file, or any block or line, has no
-text, the corresponding part in the ORF file will be missing. 
-<li>The second valid line has the form `<samp><span class="samp">total text blocks </span><var>n</var></samp>'. 
-Where <var>n</var> is the total number of text blocks in the source image. 
+<li>Any line beginning with `<samp><span class="samp">#</span></samp>' is a comment line. 
+<li>The first non-comment line has the form
+`<samp><span class="samp">source&nbsp;file&nbsp;</span><var>filename</var></samp>'<!-- /@w -->, where <var>filename</var> is the name
+of the file being processed (`<samp><span class="samp">-</span></samp>' for stdin). This is the only line
+guaranteed to exist for every input file read without errors. If the
+file, or any block or line, has no text, the corresponding part in the
+ORF file will be missing. 
+<li>The second non-comment line has the form
+`<samp><span class="samp">total&nbsp;text&nbsp;blocks&nbsp;</span><var>n</var></samp>'<!-- /@w -->, where <var>n</var> is the total number
+of text blocks in the source image. 
 </ul>
 
 <p class="noindent">For each text block in the source image, the following data follows:
@@ -556,7 +572,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 <h2 class="chapter">9 Reporting Bugs</h2>
 
-<p><a name="index-bugs-35"></a><a name="index-getting-help-36"></a>
+<p><a name="index-bugs-36"></a><a name="index-getting-help-37"></a>
 There are probably bugs in ocrad. There are certainly errors and
 omissions in this manual. If you report them, they will get fixed. If
 you don't, no one will ever know about them and they will remain unfixed
@@ -577,16 +593,16 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="unnumbered">Concept Index</h2>
 
 <ul class="index-cp" compact>
-<li><a href="#index-algorithm-33">algorithm</a>: <a href="#Algorithm">Algorithm</a></li>
-<li><a href="#index-bugs-35">bugs</a>: <a href="#Problems">Problems</a></li>
-<li><a href="#index-getting-help-36">getting help</a>: <a href="#Problems">Problems</a></li>
-<li><a href="#index-image-format-conversion-32">image format conversion</a>: <a href="#Image-Format-Conversion">Image Format Conversion</a></li>
+<li><a href="#index-algorithm-34">algorithm</a>: <a href="#Algorithm">Algorithm</a></li>
+<li><a href="#index-bugs-36">bugs</a>: <a href="#Problems">Problems</a></li>
+<li><a href="#index-getting-help-37">getting help</a>: <a href="#Problems">Problems</a></li>
+<li><a href="#index-image-format-conversion-33">image format conversion</a>: <a href="#Image-Format-Conversion">Image Format Conversion</a></li>
 <li><a href="#index-input-charsets-1">input charsets</a>: <a href="#Character-Sets">Character Sets</a></li>
 <li><a href="#index-invoking-3">invoking</a>: <a href="#Invoking-Ocrad">Invoking Ocrad</a></li>
-<li><a href="#index-library-error-codes-26">library error codes</a>: <a href="#Library-Error-Codes">Library Error Codes</a></li>
+<li><a href="#index-library-error-codes-27">library error codes</a>: <a href="#Library-Error-Codes">Library Error Codes</a></li>
 <li><a href="#index-library-functions-10">library functions</a>: <a href="#Library-Functions">Library Functions</a></li>
 <li><a href="#index-library-version-7">library version</a>: <a href="#Library-Version">Library Version</a></li>
-<li><a href="#index-OCR-Results-File-34">OCR Results File</a>: <a href="#OCR-Results-File">OCR Results File</a></li>
+<li><a href="#index-OCR-Results-File-35">OCR Results File</a>: <a href="#OCR-Results-File">OCR Results File</a></li>
 <li><a href="#index-options-4">options</a>: <a href="#Invoking-Ocrad">Invoking Ocrad</a></li>
 <li><a href="#index-output-format-2">output format</a>: <a href="#Character-Sets">Character Sets</a></li>
 <li><a href="#index-usage-5">usage</a>: <a href="#Invoking-Ocrad">Invoking Ocrad</a></li>
