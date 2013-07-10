@@ -23,14 +23,14 @@
 <div class="node">
 <p><hr>
 <a name="Top"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Character-Sets">Character Sets</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#Character-sets">Character sets</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 </div>
 
 <h2 class="unnumbered">GNU Ocrad Manual</h2>
 
-<p>This manual is for GNU Ocrad (version 0.22-rc3, 21 June 2013).
+<p>This manual is for GNU Ocrad (version 0.22, 9 July 2013).
 
    <pre class="sp">
 
@@ -44,16 +44,16 @@ known as pnm.
 of text normally found on printed pages.
 
 <ul class="menu">
-<li><a accesskey="1" href="#Character-Sets">Character Sets</a>:               Input charsets and output formats
-<li><a accesskey="2" href="#Invoking-Ocrad">Invoking Ocrad</a>:               Command line interface
-<li><a accesskey="3" href="#Library-Version">Library Version</a>:              Checking library version
-<li><a accesskey="4" href="#Library-Functions">Library Functions</a>:            Descriptions of the library functions
-<li><a accesskey="5" href="#Library-Error-Codes">Library Error Codes</a>:          Meaning of codes returned by functions
-<li><a accesskey="6" href="#Image-Format-Conversion">Image Format Conversion</a>:      How to convert other formats to pnm
+<li><a accesskey="1" href="#Character-sets">Character sets</a>:               Input charsets and output formats
+<li><a accesskey="2" href="#Invoking-ocrad">Invoking ocrad</a>:               Command line interface
+<li><a accesskey="3" href="#Library-version">Library version</a>:              Checking library version
+<li><a accesskey="4" href="#Library-functions">Library functions</a>:            Descriptions of the library functions
+<li><a accesskey="5" href="#Library-error-codes">Library error codes</a>:          Meaning of codes returned by functions
+<li><a accesskey="6" href="#Image-format-conversion">Image format conversion</a>:      How to convert other formats to pnm
 <li><a accesskey="7" href="#Algorithm">Algorithm</a>:                    How ocrad does its job
-<li><a accesskey="8" href="#OCR-Results-File">OCR Results File</a>:             Description of the ORF file format
+<li><a accesskey="8" href="#OCR-results-file">OCR results file</a>:             Description of the ORF file format
 <li><a accesskey="9" href="#Problems">Problems</a>:                     Reporting bugs
-<li><a href="#Concept-Index">Concept Index</a>:                Index of concepts
+<li><a href="#Concept-index">Concept index</a>:                Index of concepts
 </ul>
 
    <pre class="sp">
@@ -67,14 +67,14 @@ to copy, distribute and modify it.
 
 <div class="node">
 <p><hr>
-<a name="Character-Sets"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Invoking-Ocrad">Invoking Ocrad</a>,
+<a name="Character-sets"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Invoking-ocrad">Invoking ocrad</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Top">Top</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="chapter">1 Character Sets</h2>
+<h2 class="chapter">1 Character sets</h2>
 
 <p><a name="index-input-charsets-1"></a><a name="index-output-format-2"></a>
 The character set internally used by ocrad is ISO 10646, also known as
@@ -103,14 +103,14 @@ making communication among all people difficult. Thanks.
 
 <div class="node">
 <p><hr>
-<a name="Invoking-Ocrad"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Library-Version">Library Version</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#Character-Sets">Character Sets</a>,
+<a name="Invoking-ocrad"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Library-version">Library version</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Character-sets">Character sets</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="chapter">2 Invoking Ocrad</h2>
+<h2 class="chapter">2 Invoking ocrad</h2>
 
 <p><a name="index-invoking-3"></a><a name="index-options-4"></a><a name="index-usage-5"></a><a name="index-version-6"></a>
 The format for running ocrad is:
@@ -188,7 +188,7 @@ recognition.
 
      <br><dt>`<samp><span class="samp">-v</span></samp>'<dt>`<samp><span class="samp">--verbose</span></samp>'<dd>Verbose mode.
 
-     <br><dt>`<samp><span class="samp">-x </span><var>file</var></samp>'<dt>`<samp><span class="samp">--export=</span><var>file</var></samp>'<dd>Write (export) OCR Results File to <var>file</var> (see <a href="#OCR-Results-File">OCR Results File</a>). 
+     <br><dt>`<samp><span class="samp">-x </span><var>file</var></samp>'<dt>`<samp><span class="samp">--export=</span><var>file</var></samp>'<dd>Write (export) OCR results file to <var>file</var> (see <a href="#OCR-results-file">OCR results file</a>). 
 `<samp><span class="samp">-x&nbsp;-</span></samp>'<!-- /@w --> writes to stdout, overriding text output except if
 output has been also redirected with the `<samp><span class="samp">-o</span></samp>' option.
 
@@ -201,14 +201,14 @@ caused ocrad to panic.
 
 <div class="node">
 <p><hr>
-<a name="Library-Version"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Library-Functions">Library Functions</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#Invoking-Ocrad">Invoking Ocrad</a>,
+<a name="Library-version"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Library-functions">Library functions</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Invoking-ocrad">Invoking ocrad</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="chapter">3 Library Version</h2>
+<h2 class="chapter">3 Library version</h2>
 
 <p><a name="index-library-version-7"></a>
 
@@ -232,14 +232,14 @@ used by the application.
 </pre>
    <div class="node">
 <p><hr>
-<a name="Library-Functions"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Library-Error-Codes">Library Error Codes</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#Library-Version">Library Version</a>,
+<a name="Library-functions"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Library-error-codes">Library error codes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Library-version">Library version</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="chapter">4 Library Functions</h2>
+<h2 class="chapter">4 Library functions</h2>
 
 <p><a name="index-library-functions-10"></a>
 These are the OCRAD library functions. In case of error, all of them
@@ -267,7 +267,7 @@ an argument to any OCRAD function.
 
 <div class="defun">
 &mdash; Function: enum OCRAD_Errno <b>OCRAD_get_errno</b> (<var> struct OCRAD_Descriptor * const ocrdes </var>)<var><a name="index-OCRAD_005fget_005ferrno-13"></a></var><br>
-<blockquote><p>Returns the current error code for <var>ocrdes</var> (see <a href="#Library-Error-Codes">Library Error Codes</a>). 
+<blockquote><p>Returns the current error code for <var>ocrdes</var> (see <a href="#Library-error-codes">Library error codes</a>). 
 </p></blockquote></div>
 
 <div class="defun">
@@ -358,14 +358,14 @@ images containing a single character.
 
 <div class="node">
 <p><hr>
-<a name="Library-Error-Codes"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Image-Format-Conversion">Image Format Conversion</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#Library-Functions">Library Functions</a>,
+<a name="Library-error-codes"></a>
+Next:&nbsp;<a rel="next" accesskey="n" href="#Image-format-conversion">Image format conversion</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Library-functions">Library functions</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="chapter">5 Library Error Codes</h2>
+<h2 class="chapter">5 Library error codes</h2>
 
 <p><a name="index-library-error-codes-27"></a>
 Most library functions return -1 or a null pointer to indicate that they
@@ -413,14 +413,14 @@ because its capacity is full.
 
 <div class="node">
 <p><hr>
-<a name="Image-Format-Conversion"></a>
+<a name="Image-format-conversion"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Algorithm">Algorithm</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#Library-Error-Codes">Library Error Codes</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Library-error-codes">Library error codes</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="chapter">6 Image Format Conversion</h2>
+<h2 class="chapter">6 Image format conversion</h2>
 
 <p><a name="index-image-format-conversion-33"></a>
 There are a lot of image formats, but ocrad is able to decode only three
@@ -460,8 +460,8 @@ JPEG is a lossy format and is in general not recommended for text images.
 <div class="node">
 <p><hr>
 <a name="Algorithm"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#OCR-Results-File">OCR Results File</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#Image-Format-Conversion">Image Format Conversion</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#OCR-results-file">OCR results file</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#Image-format-conversion">Image format conversion</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
@@ -498,17 +498,17 @@ difficult to modify ocrad to recognize new characters.
 
 <div class="node">
 <p><hr>
-<a name="OCR-Results-File"></a>
+<a name="OCR-results-file"></a>
 Next:&nbsp;<a rel="next" accesskey="n" href="#Problems">Problems</a>,
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Algorithm">Algorithm</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="chapter">8 OCR Results File</h2>
+<h2 class="chapter">8 OCR results file</h2>
 
-<p><a name="index-OCR-Results-File-35"></a>
-Calling ocrad with option `<samp><span class="samp">-x</span></samp>' produces an OCR Results File (ORF),
+<p><a name="index-OCR-results-file-35"></a>
+Calling ocrad with option `<samp><span class="samp">-x</span></samp>' produces an OCR results file (ORF),
 that is, a parsable file containing the OCR results. The ORF format is
 as follows:
 
@@ -564,8 +564,8 @@ will give you an example ORF file.
 <div class="node">
 <p><hr>
 <a name="Problems"></a>
-Next:&nbsp;<a rel="next" accesskey="n" href="#Concept-Index">Concept Index</a>,
-Previous:&nbsp;<a rel="previous" accesskey="p" href="#OCR-Results-File">OCR Results File</a>,
+Next:&nbsp;<a rel="next" accesskey="n" href="#Concept-index">Concept index</a>,
+Previous:&nbsp;<a rel="previous" accesskey="p" href="#OCR-results-file">OCR results file</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
@@ -584,28 +584,28 @@ find by running `<samp><span class="samp">ocrad&nbsp;--version</span></samp>'<!-
 
 <div class="node">
 <p><hr>
-<a name="Concept-Index"></a>
+<a name="Concept-index"></a>
 Previous:&nbsp;<a rel="previous" accesskey="p" href="#Problems">Problems</a>,
 Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 
 </div>
 
-<h2 class="unnumbered">Concept Index</h2>
+<h2 class="unnumbered">Concept index</h2>
 
 <ul class="index-cp" compact>
 <li><a href="#index-algorithm-34">algorithm</a>: <a href="#Algorithm">Algorithm</a></li>
 <li><a href="#index-bugs-36">bugs</a>: <a href="#Problems">Problems</a></li>
 <li><a href="#index-getting-help-37">getting help</a>: <a href="#Problems">Problems</a></li>
-<li><a href="#index-image-format-conversion-33">image format conversion</a>: <a href="#Image-Format-Conversion">Image Format Conversion</a></li>
-<li><a href="#index-input-charsets-1">input charsets</a>: <a href="#Character-Sets">Character Sets</a></li>
-<li><a href="#index-invoking-3">invoking</a>: <a href="#Invoking-Ocrad">Invoking Ocrad</a></li>
-<li><a href="#index-library-error-codes-27">library error codes</a>: <a href="#Library-Error-Codes">Library Error Codes</a></li>
-<li><a href="#index-library-functions-10">library functions</a>: <a href="#Library-Functions">Library Functions</a></li>
-<li><a href="#index-library-version-7">library version</a>: <a href="#Library-Version">Library Version</a></li>
-<li><a href="#index-OCR-Results-File-35">OCR Results File</a>: <a href="#OCR-Results-File">OCR Results File</a></li>
-<li><a href="#index-options-4">options</a>: <a href="#Invoking-Ocrad">Invoking Ocrad</a></li>
-<li><a href="#index-output-format-2">output format</a>: <a href="#Character-Sets">Character Sets</a></li>
-<li><a href="#index-usage-5">usage</a>: <a href="#Invoking-Ocrad">Invoking Ocrad</a></li>
-<li><a href="#index-version-6">version</a>: <a href="#Invoking-Ocrad">Invoking Ocrad</a></li>
+<li><a href="#index-image-format-conversion-33">image format conversion</a>: <a href="#Image-format-conversion">Image format conversion</a></li>
+<li><a href="#index-input-charsets-1">input charsets</a>: <a href="#Character-sets">Character sets</a></li>
+<li><a href="#index-invoking-3">invoking</a>: <a href="#Invoking-ocrad">Invoking ocrad</a></li>
+<li><a href="#index-library-error-codes-27">library error codes</a>: <a href="#Library-error-codes">Library error codes</a></li>
+<li><a href="#index-library-functions-10">library functions</a>: <a href="#Library-functions">Library functions</a></li>
+<li><a href="#index-library-version-7">library version</a>: <a href="#Library-version">Library version</a></li>
+<li><a href="#index-OCR-results-file-35">OCR results file</a>: <a href="#OCR-results-file">OCR results file</a></li>
+<li><a href="#index-options-4">options</a>: <a href="#Invoking-ocrad">Invoking ocrad</a></li>
+<li><a href="#index-output-format-2">output format</a>: <a href="#Character-sets">Character sets</a></li>
+<li><a href="#index-usage-5">usage</a>: <a href="#Invoking-ocrad">Invoking ocrad</a></li>
+<li><a href="#index-version-6">version</a>: <a href="#Invoking-ocrad">Invoking ocrad</a></li>
 </ul></body></html>
 
