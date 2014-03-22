@@ -30,7 +30,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">GNU Ocrad Manual</h2>
 
-<p>This manual is for GNU Ocrad (version 0.23-pre2, 2 January 2014).
+<p>This manual is for GNU Ocrad (version 0.23, 10 March 2014).
 
    <pre class="sp">
 
@@ -474,14 +474,14 @@ are ad hoc, and will change in successive releases as I myself gain
 understanding about OCR issues.
 
    <p>The overall working of ocrad may be described as follows:<br>
-1) read the image.<br>
-2) optionally, perform some transformations (cut, rotate, scale, etc).<br>
-3) optionally, perform layout detection.<br>
-4) remove frames and pictures.<br>
-5) detect characters and group them in lines.<br>
-6) recognize characters (very ad hoc; one algorithm per character).<br>
-7) correct some errors (transform l.OOO into 1.000, etc).<br>
-8) output result.
+1) Read the image.<br>
+2) Optionally, perform some transformations (cut, rotate, scale, etc).<br>
+3) Optionally, perform layout detection.<br>
+4) Remove frames and pictures.<br>
+5) Detect characters and group them in lines.<br>
+6) Recognize characters (very ad hoc; one algorithm per character).<br>
+7) Correct some ambiguities (transform l.OOO into 1.000, etc).<br>
+8) Output result.
 
    <pre class="sp">
 
