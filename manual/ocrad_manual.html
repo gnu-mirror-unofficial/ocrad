@@ -30,7 +30,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">GNU Ocrad Manual</h2>
 
-<p>This manual is for GNU Ocrad (version 0.25, 31 March 2015).
+<p>This manual is for GNU Ocrad (version 0.26, 24 March 2017).
 
 <ul class="menu">
 <li><a accesskey="1" href="#Introduction">Introduction</a>:                 Purpose and features of GNU Ocrad
@@ -50,7 +50,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
    <pre class="sp">
 
 </pre>
-Copyright &copy; 2003-2015 Antonio Diaz Diaz.
+Copyright &copy; 2003-2017 Antonio Diaz Diaz.
 
    <p>This manual is free documentation: you have unlimited permission
 to copy, distribute and modify it.
@@ -131,65 +131,70 @@ The format for running ocrad is:
 
 <pre class="example">     ocrad [<var>options</var>] [<var>files</var>]
 </pre>
+   <p class="noindent">'<samp><span class="samp">-</span></samp>' used as a <var>file</var> argument means standard input. It can be
+mixed with other <var>files</var> and is read just once, the first time it
+appears in the command line. Ocrad can read concatenated files from
+standard input.
+
    <p>Ocrad supports the following options:
 
      <dl>
-<dt>'<samp><span class="samp">-h</span></samp>'<dt>'<samp><span class="samp">--help</span></samp>'<dd>Print an informative help message describing the options and exit. 
+<dt><code>-h</code><dt><code>--help</code><dd>Print an informative help message describing the options and exit. 
 '<samp><span class="samp">ocrad&nbsp;--verbose&nbsp;--help</span></samp>'<!-- /@w --> describes also hidden options.
 
-     <br><dt>'<samp><span class="samp">-V</span></samp>'<dt>'<samp><span class="samp">--version</span></samp>'<dd>Print the version number of ocrad on the standard output and exit.
+     <br><dt><code>-V</code><dt><code>--version</code><dd>Print the version number of ocrad on the standard output and exit.
 
-     <br><dt>'<samp><span class="samp">-a</span></samp>'<dt>'<samp><span class="samp">--append</span></samp>'<dd>Append generated text to the output file instead of overwriting it.
+     <br><dt><code>-a</code><dt><code>--append</code><dd>Append generated text to the output file instead of overwriting it.
 
-     <br><dt>'<samp><span class="samp">-c </span><var>name</var></samp>'<dt>'<samp><span class="samp">--charset=</span><var>name</var></samp>'<dd>Enable recognition of the characters belonging to the given character set. 
+     <br><dt><code>-c </code><var>name</var><dt><code>--charset=</code><var>name</var><dd>Enable recognition of the characters belonging to the given character set. 
 You can repeat this option multiple times with different names for
 processing a page with characters from different character sets.<br>
 If no charset is specified, '<samp><span class="samp">iso-8859-15</span></samp>'<!-- /@w --> (latin9) is assumed.<br>
 Try '<samp><span class="samp">--charset=help</span></samp>'<!-- /@w --> for a list of valid charset names.
 
-     <p><a name="g_t_002d_002dfilter"></a><br><dt>'<samp><span class="samp">-e </span><var>name</var></samp>'<dt>'<samp><span class="samp">--filter=</span><var>name</var></samp>'<dd>Pass the output text through the given built-in postprocessing filter
+     <p><a name="g_t_002d_002dfilter"></a><br><dt><code>-e </code><var>name</var><dt><code>--filter=</code><var>name</var><dd>Pass the output text through the given built-in postprocessing filter
 (see <a href="#Filters">Filters</a>). Several filters can be applied in sequence using as
 many '<samp><span class="samp">--filter</span></samp>' and '<samp><span class="samp">--user-filter</span></samp>' options as needed. The
 filters are applied in the order they appear on the command line.<br>
 Try '<samp><span class="samp">--filter=help</span></samp>'<!-- /@w --> for a list of valid filter names.
 
-     <p><a name="g_t_002d_002duser_002dfilter"></a><br><dt>'<samp><span class="samp">-E </span><var>file</var></samp>'<dt>'<samp><span class="samp">--user-filter=</span><var>file</var></samp>'<dd>Pass the output text through the postprocessing filter defined in
+     <p><a name="g_t_002d_002duser_002dfilter"></a><br><dt><code>-E </code><var>file</var><dt><code>--user-filter=</code><var>file</var><dd>Pass the output text through the postprocessing filter defined in
 <var>file</var>. See the chapter '<samp><span class="samp">Filters</span></samp>' (see <a href="#Filters">Filters</a>) for a
 description of the format of <var>file</var>. Several filters can be applied
 in sequence using as many '<samp><span class="samp">--filter</span></samp>' and '<samp><span class="samp">--user-filter</span></samp>'
 options as needed. The filters are applied in the order they appear on
 the command line.
 
-     <br><dt>'<samp><span class="samp">-f</span></samp>'<dt>'<samp><span class="samp">--force</span></samp>'<dd>Force overwrite of output files.
+     <br><dt><code>-f</code><dt><code>--force</code><dd>Force overwrite of output files.
 
-     <br><dt>'<samp><span class="samp">-F </span><var>name</var></samp>'<dt>'<samp><span class="samp">--format=</span><var>name</var></samp>'<dd>Select the output format. The valid names are '<samp><span class="samp">byte</span></samp>' and '<samp><span class="samp">utf8</span></samp>'.<br>
+     <br><dt><code>-F </code><var>name</var><dt><code>--format=</code><var>name</var><dd>Select the output format. The valid names are '<samp><span class="samp">byte</span></samp>' and '<samp><span class="samp">utf8</span></samp>'.<br>
 If no output format is specified, '<samp><span class="samp">byte</span></samp>' (8 bit) is assumed.
 
-     <br><dt>'<samp><span class="samp">-i</span></samp>'<dt>'<samp><span class="samp">--invert</span></samp>'<dd>Invert image levels (white on black).
+     <br><dt><code>-i</code><dt><code>--invert</code><dd>Invert image levels (white on black).
 
-     <br><dt>'<samp><span class="samp">-l</span></samp>'<dt>'<samp><span class="samp">--layout</span></samp>'<dd>Enable page layout analysis. Ocrad is able to separate blocks of text of
+     <br><dt><code>-l</code><dt><code>--layout</code><dd>Enable page layout analysis. Ocrad is able to separate blocks of text of
 arbitrary shape as long as they are clearly delimited by white space.
 
-     <br><dt>'<samp><span class="samp">-o </span><var>file</var></samp>'<dt>'<samp><span class="samp">--output=</span><var>file</var></samp>'<dd>Place the output into <var>file</var> instead of into the standard output.
+     <br><dt><code>-o </code><var>file</var><dt><code>--output=</code><var>file</var><dd>Place the output into <var>file</var> instead of into the standard output.
 
-     <br><dt>'<samp><span class="samp">-q</span></samp>'<dt>'<samp><span class="samp">--quiet</span></samp>'<dd>Quiet operation.
+     <br><dt><code>-q</code><dt><code>--quiet</code><dd>Quiet operation.
 
-     <br><dt>'<samp><span class="samp">-s </span><var>value</var></samp>'<dt>'<samp><span class="samp">--scale=</span><var>value</var></samp>'<dd>Scale up the input image by <var>value</var> before layout analysis and
+     <br><dt><code>-s </code><var>value</var><dt><code>--scale=</code><var>value</var><dd>Scale up the input image by <var>value</var> before layout analysis and
 recognition. If <var>value</var> is negative, the input image is scaled down
 by <var>-value</var>.
 
-     <br><dt>'<samp><span class="samp">-t </span><var>name</var></samp>'<dt>'<samp><span class="samp">--transform=</span><var>name</var></samp>'<dd>Perform given transformation (rotation or mirroring) on the input image
+     <br><dt><code>-t </code><var>name</var><dt><code>--transform=</code><var>name</var><dd>Perform given transformation (rotation or mirroring) on the input image
 before scaling, layout analysis and recognition. Rotations are made
 counter-clockwise.<br>
 Try '<samp><span class="samp">--transform=help</span></samp>'<!-- /@w --> for a list of valid transformation names.
 
-     <br><dt>'<samp><span class="samp">-T </span><var>value</var></samp>'<dt>'<samp><span class="samp">--threshold=</span><var>value</var></samp>'<dd>Set binarization threshold for pgm or ppm files or for '<samp><span class="samp">--scale</span></samp>'
+     <br><dt><code>-T </code><var>value</var><dt><code>--threshold=</code><var>value</var><dd>Set binarization threshold for pgm or ppm files or for '<samp><span class="samp">--scale</span></samp>'
 option (only for scaled down images). <var>value</var> should be a rational
 number between 0 and 1, and may be given as a percentage (50%), a
 fraction (1/2), or a decimal value (0.5). Image values greater than
 threshold are converted to white. The default value is 0.5.
 
-     <br><dt>'<samp><span class="samp">-u </span><var>left</var><span class="samp">,</span><var>top</var><span class="samp">,</span><var>width</var><span class="samp">,</span><var>height</var></samp>'<dt>'<samp><span class="samp">--cut=</span><var>left</var><span class="samp">,</span><var>top</var><span class="samp">,</span><var>width</var><span class="samp">,</span><var>height</var></samp>'<dd>Cut the input image by the rectangle defined by <var>left</var>, <var>top</var>,
+     <br><dt><code>-u </code><var>left</var><code>,</code><var>top</var><code>,</code><var>width</var><code>,</code><var>height</var><dt><code>--cut=</code><var>left</var><code>,</code><var>top</var><code>,</code><var>width</var><code>,</code><var>height</var><dd>Cut the input image by the rectangle defined by <var>left</var>, <var>top</var>,
 <var>width</var> and <var>height</var>. Values may be relative to the image size
 (-1.0&nbsp;&lt;=&nbsp;value&nbsp;&lt;=&nbsp;+1.0)<!-- /@w -->, or absolute (abs(&nbsp;value&nbsp;)&nbsp;&gt;&nbsp;1)<!-- /@w -->. 
 Negative values of <var>left</var>, <var>top</var> are relative to the
@@ -201,9 +206,9 @@ The cutting is performed before any other transformation (rotation or
 mirroring) on the input image, and before scaling, layout analysis and
 recognition.
 
-     <br><dt>'<samp><span class="samp">-v</span></samp>'<dt>'<samp><span class="samp">--verbose</span></samp>'<dd>Verbose mode.
+     <br><dt><code>-v</code><dt><code>--verbose</code><dd>Verbose mode.
 
-     <br><dt>'<samp><span class="samp">-x </span><var>file</var></samp>'<dt>'<samp><span class="samp">--export=</span><var>file</var></samp>'<dd>Write (export) OCR results file to <var>file</var> (see <a href="#OCR-results-file">OCR results file</a>). 
+     <br><dt><code>-x </code><var>file</var><dt><code>--export=</code><var>file</var><dd>Write (export) OCR results file to <var>file</var> (see <a href="#OCR-results-file">OCR results file</a>). 
 '<samp><span class="samp">-x&nbsp;-</span></samp>'<!-- /@w --> writes to stdout, overriding text output except if
 output has been also redirected with the '<samp><span class="samp">-o</span></samp>' option.
 
@@ -304,29 +309,29 @@ filter '<samp><span class="samp">numbers</span></samp>':
 <p>Ocrad provides the following built-in filters (see <a href="#g_t_002d_002dfilter">--filter</a>):
 
      <dl>
-<dt>'<samp><span class="samp">--filter=letters</span></samp>'<dd>Forces every character that resembles a letter to be recognized as a
+<dt><code>--filter=letters</code><dd>Forces every character that resembles a letter to be recognized as a
 letter. Other characters will be output without change.
 
-     <br><dt>'<samp><span class="samp">--filter=letters_only</span></samp>'<dd>Same as '<samp><span class="samp">--filter=letters</span></samp>', but other characters will be discarded.
+     <br><dt><code>--filter=letters_only</code><dd>Same as '<samp><span class="samp">--filter=letters</span></samp>', but other characters will be discarded.
 
-     <br><dt>'<samp><span class="samp">--filter=numbers</span></samp>'<dd>Forces every character that resembles a number to be recognized as a
+     <br><dt><code>--filter=numbers</code><dd>Forces every character that resembles a number to be recognized as a
 number. Other characters will be output without change.
 
-     <br><dt>'<samp><span class="samp">--filter=numbers_only</span></samp>'<dd>Same as '<samp><span class="samp">--filter=numbers</span></samp>' but other characters will be discarded.
+     <br><dt><code>--filter=numbers_only</code><dd>Same as '<samp><span class="samp">--filter=numbers</span></samp>' but other characters will be discarded.
 
-     <br><dt>'<samp><span class="samp">--filter=same_height</span></samp>'<dd>Discards any character (or noise) whose height differs in more than 10
+     <br><dt><code>--filter=same_height</code><dd>Discards any character (or noise) whose height differs in more than 10
 percent from the median height of the characters in the line.
 
-     <br><dt>'<samp><span class="samp">--filter=text_block</span></samp>'<dd>Discards any character (or noise) outside of a rectangular block of text
+     <br><dt><code>--filter=text_block</code><dd>Discards any character (or noise) outside of a rectangular block of text
 lines.
 
-     <br><dt>'<samp><span class="samp">--filter=upper_num</span></samp>'<dd>Forces every character that resembles a uppercase letter or a number to
+     <br><dt><code>--filter=upper_num</code><dd>Forces every character that resembles a uppercase letter or a number to
 be recognized as such. Other characters will be output without change.
 
-     <br><dt>'<samp><span class="samp">--filter=upper_num_mark</span></samp>'<dd>Same as '<samp><span class="samp">--filter=upper_num</span></samp>', but other characters will be marked
+     <br><dt><code>--filter=upper_num_mark</code><dd>Same as '<samp><span class="samp">--filter=upper_num</span></samp>', but other characters will be marked
 as unrecognized.
 
-     <br><dt>'<samp><span class="samp">--filter=upper_num_only</span></samp>'<dd>Same as '<samp><span class="samp">--filter=upper_num</span></samp>', but other characters will be
+     <br><dt><code>--filter=upper_num_only</code><dd>Same as '<samp><span class="samp">--filter=upper_num</span></samp>', but other characters will be
 discarded.
 
    </dl>
@@ -360,7 +365,7 @@ actually used may be incompatible with the '<samp><span class="samp">ocradlib.h<
 used by the application.
 
 <pre class="example">     if( OCRAD_version()[0] != OCRAD_version_string[0] )
-       error( "bad library version" );
+       error( "bad library version." );
 </pre>
    <div class="node">
 <a name="Library-functions"></a>
@@ -506,7 +511,7 @@ have failed. But this return value only tells you that an error has
 occurred. To find out what kind of error it was, you need to verify the
 error code by calling '<samp><span class="samp">OCRAD_get_errno</span></samp>'.
 
-   <p>Library functions do not change the value returned by
+   <p>Library functions don't change the value returned by
 '<samp><span class="samp">OCRAD_get_errno</span></samp>' when they succeed; thus, the value returned by
 '<samp><span class="samp">OCRAD_get_errno</span></samp>' after a successful call is not necessarily
 OCRAD_ok, and you should not use '<samp><span class="samp">OCRAD_get_errno</span></samp>' to determine
@@ -650,10 +655,10 @@ as follows:
 <li>Any line beginning with '<samp><span class="samp">#</span></samp>' is a comment line. 
 <li>The first non-comment line has the form
 '<samp><span class="samp">source&nbsp;file&nbsp;</span><var>filename</var></samp>'<!-- /@w -->, where <var>filename</var> is the name
-of the file being processed ('<samp><span class="samp">-</span></samp>' for stdin). This is the only line
-guaranteed to exist for every input file read without errors. If the
-file, or any block or line, has no text, the corresponding part in the
-ORF file will be missing. 
+of the file being processed ('<samp><span class="samp">-</span></samp>' for standard input). This is the
+only line guaranteed to exist for every input file read without errors. 
+If the file, or any block or line, has no text, the corresponding part
+in the ORF file will be missing. 
 <li>The second non-comment line has the form
 '<samp><span class="samp">total&nbsp;text&nbsp;blocks&nbsp;</span><var>n</var></samp>'<!-- /@w -->, where <var>n</var> is the total number
 of text blocks in the source image. 
