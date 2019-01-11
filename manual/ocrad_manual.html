@@ -30,7 +30,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
 
 <h2 class="unnumbered">GNU Ocrad Manual</h2>
 
-<p>This manual is for GNU Ocrad (version 0.26, 24 March 2017).
+<p>This manual is for GNU Ocrad (version 0.27, 10 January 2019).
 
 <ul class="menu">
 <li><a accesskey="1" href="#Introduction">Introduction</a>:                 Purpose and features of GNU Ocrad
@@ -50,7 +50,7 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#dir">(dir)</a>
    <pre class="sp">
 
 </pre>
-Copyright &copy; 2003-2017 Antonio Diaz Diaz.
+Copyright &copy; 2003-2019 Antonio Diaz Diaz.
 
    <p>This manual is free documentation: you have unlimited permission
 to copy, distribute and modify it.
@@ -67,10 +67,11 @@ Up:&nbsp;<a rel="up" accesskey="u" href="#Top">Top</a>
 <h2 class="chapter">1 Introduction</h2>
 
 <p><a name="index-introduction-1"></a>
-GNU Ocrad is an OCR (Optical Character Recognition) program and library
-based on a feature extraction method. It reads images in pbm (bitmap),
-pgm (greyscale) or ppm (color) formats and produces text in byte&nbsp;(8-bit)<!-- /@w --> or UTF-8 formats. The pbm, pgm and ppm formats are collectively
-known as pnm.
+<a href="http://www.gnu.org/software/ocrad/ocrad.html">GNU Ocrad</a> is an OCR
+(Optical Character Recognition) program and library based on a feature
+extraction method. It reads images in pbm (bitmap), pgm (greyscale) or ppm
+(color) formats and produces text in byte&nbsp;(8-bit)<!-- /@w --> or UTF-8 formats. The
+pbm, pgm and ppm formats are collectively known as pnm.
 
    <p>Ocrad includes a layout analyser able to separate the columns or blocks
 of text normally found on printed pages.
@@ -100,12 +101,12 @@ characters, you can tell ocrad what character sets to recognize. You do
 this with the '<samp><span class="samp">--charset</span></samp>' option.
 
    <p>If the input page contains characters from only one character set, say
-'<samp><span class="samp">ISO-8859-15</span></samp>'<!-- /@w -->, you can use the default '<samp><span class="samp">byte</span></samp>' output
-format. But in a page with '<samp><span class="samp">ISO-8859-9</span></samp>'<!-- /@w --> and
-'<samp><span class="samp">ISO-8859-15</span></samp>'<!-- /@w --> characters, you can't tell if a code of 0xFD
-represents a 'latin small letter i dotless' or a 'latin small letter y
-with acute'. You should use '<samp><span class="samp">--format=utf8</span></samp>'<!-- /@w --> instead.<br>
-Of course, you may request UTF-8 output in any case.
+'<samp><span class="samp">ISO-8859-15</span></samp>', you can use the default '<samp><span class="samp">byte</span></samp>' output format. But
+in a page with '<samp><span class="samp">ISO-8859-9</span></samp>' and '<samp><span class="samp">ISO-8859-15</span></samp>' characters, you
+can't tell if a code of 0xFD represents a '<samp><span class="samp">latin small letter i
+dotless</span></samp>' or a '<samp><span class="samp">latin small letter y with acute</span></samp>'. You should use
+'<samp><span class="samp">--format=utf8</span></samp>' instead. Of course, you may request UTF-8 output in any
+case.
 
    <pre class="sp">
 
@@ -136,27 +137,28 @@ mixed with other <var>files</var> and is read just once, the first time it
 appears in the command line. Ocrad can read concatenated files from
 standard input.
 
-   <p>Ocrad supports the following options:
+   <p>ocrad supports the following options:
 
      <dl>
 <dt><code>-h</code><dt><code>--help</code><dd>Print an informative help message describing the options and exit. 
 '<samp><span class="samp">ocrad&nbsp;--verbose&nbsp;--help</span></samp>'<!-- /@w --> describes also hidden options.
 
-     <br><dt><code>-V</code><dt><code>--version</code><dd>Print the version number of ocrad on the standard output and exit.
+     <br><dt><code>-V</code><dt><code>--version</code><dd>Print the version number of ocrad on the standard output and exit. 
+This version number should be included in all bug reports.
 
      <br><dt><code>-a</code><dt><code>--append</code><dd>Append generated text to the output file instead of overwriting it.
 
      <br><dt><code>-c </code><var>name</var><dt><code>--charset=</code><var>name</var><dd>Enable recognition of the characters belonging to the given character set. 
 You can repeat this option multiple times with different names for
 processing a page with characters from different character sets.<br>
-If no charset is specified, '<samp><span class="samp">iso-8859-15</span></samp>'<!-- /@w --> (latin9) is assumed.<br>
-Try '<samp><span class="samp">--charset=help</span></samp>'<!-- /@w --> for a list of valid charset names.
+If no charset is specified, '<samp><span class="samp">iso-8859-15</span></samp>' (latin9) is assumed.<br>
+Try '<samp><span class="samp">--charset=help</span></samp>' for a list of valid charset names.
 
      <p><a name="g_t_002d_002dfilter"></a><br><dt><code>-e </code><var>name</var><dt><code>--filter=</code><var>name</var><dd>Pass the output text through the given built-in postprocessing filter
 (see <a href="#Filters">Filters</a>). Several filters can be applied in sequence using as
 many '<samp><span class="samp">--filter</span></samp>' and '<samp><span class="samp">--user-filter</span></samp>' options as needed. The
 filters are applied in the order they appear on the command line.<br>
-Try '<samp><span class="samp">--filter=help</span></samp>'<!-- /@w --> for a list of valid filter names.
+Try '<samp><span class="samp">--filter=help</span></samp>' for a list of valid filter names.
 
      <p><a name="g_t_002d_002duser_002dfilter"></a><br><dt><code>-E </code><var>file</var><dt><code>--user-filter=</code><var>file</var><dd>Pass the output text through the postprocessing filter defined in
 <var>file</var>. See the chapter '<samp><span class="samp">Filters</span></samp>' (see <a href="#Filters">Filters</a>) for a
@@ -186,7 +188,7 @@ by <var>-value</var>.
      <br><dt><code>-t </code><var>name</var><dt><code>--transform=</code><var>name</var><dd>Perform given transformation (rotation or mirroring) on the input image
 before scaling, layout analysis and recognition. Rotations are made
 counter-clockwise.<br>
-Try '<samp><span class="samp">--transform=help</span></samp>'<!-- /@w --> for a list of valid transformation names.
+Try '<samp><span class="samp">--transform=help</span></samp>' for a list of valid transformation names.
 
      <br><dt><code>-T </code><var>value</var><dt><code>--threshold=</code><var>value</var><dd>Set binarization threshold for pgm or ppm files or for '<samp><span class="samp">--scale</span></samp>'
 option (only for scaled down images). <var>value</var> should be a rational
@@ -590,8 +592,8 @@ JPEG is a lossy format and is in general not recommended for text images.
      <br><dt>'<samp><span class="samp">.pnm.gz</span></samp>'<dd>Pnm file compressed with gzip. Use the command
 <code>gzip&nbsp;-cd&nbsp;filename.pnm.gz&nbsp;|&nbsp;ocrad</code><!-- /@w -->
 
-     <br><dt>'<samp><span class="samp">.pnm.lz</span></samp>'<dd>Pnm file compressed with lzip. Use the command
-<code>lzip&nbsp;-cd&nbsp;filename.pnm.lz&nbsp;|&nbsp;ocrad</code><!-- /@w -->
+     <br><dt>'<samp><span class="samp">.pnm.lz</span></samp>'<dd>Pnm file compressed with <a href="http://www.nongnu.org/lzip/lzip.html">lzip</a>. 
+Use the command <code>lzip&nbsp;-cd&nbsp;filename.pnm.lz&nbsp;|&nbsp;ocrad</code><!-- /@w -->
 
    </dl>
 
